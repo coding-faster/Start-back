@@ -41,6 +41,7 @@ public class BBSController {
 	}
 	@PutMapping("/")
 	public void update(@RequestBody BBSVO vo) {
+		System.out.println(vo);
 		dao.update(vo);
 	}
 	@PatchMapping("/{bid}")

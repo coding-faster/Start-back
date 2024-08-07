@@ -4,7 +4,7 @@
 	<select id="list" resultType="com.example.domain.BBSVO">
 		select * from BBS
 		order by bid desc
-		limit 0, 5;
+		limit 0, 30;
 	</select>
 	<select id="read" resultType="com.example.domain.BBSVO">
 		select * from BBS
@@ -13,14 +13,15 @@
 	<update id="update">
 		update BBS
 		set title=#{title}, contents=#{contents}
+		where bid=#{bid}
 	</update>
 	<delete id="delete">
 		delete from BBS
 		where bid=#{bid}
 	</delete>
 	<insert id="insert">
-		insert into BBS(uid, title, contents)
-		values(#{uid}, #{title}, #{contents})
+		insert into BBS(writer, title, contents)
+		values(#{writer}, #{title}, #{contents})
 	</insert>
  	<select id="now" resultType="string">
  		select now();
