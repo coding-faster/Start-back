@@ -3,9 +3,25 @@
 <mapper namespace="com.example.mapper.BBSMapper">
 	<select id="list" resultType="com.example.domain.BBSVO">
 		select * from BBS
+	
+		<where>
+		 	<if test="key=='writer'">
+		 		writer like #{word}
+			</if>
+			<if test="key=='title'">
+		 		title like #{word}
+			</if>
+			<if test="key=='contents'">
+		 		contents like #{word}
+			</if>
+	</where>
 		order by bid desc
-		limit 0, 30;
+		limit #{start},#{size};
 	</select>
+	<select id="total" resultType="int">
+		select count(*)
+		from BBS;
+	</select>	
 	<select id="read" resultType="com.example.domain.BBSVO">
 		select * from BBS
 		where bid=#{bid}

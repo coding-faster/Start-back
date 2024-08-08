@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.domain.BBSVO;
+import com.example.domain.QueryVO;
 
 
 @Repository
@@ -17,9 +18,9 @@ public class BBSDAOImpl implements BBSDAO{
 	String namespace="com.example.mapper.BBSMapper";
 
 	@Override
-	public List<BBSVO> list() {
+	public List<BBSVO> list(QueryVO vo) {
 		
-		return session.selectList(namespace+".list");
+		return session.selectList(namespace + ".list", vo);
 	}
 
 	@Override
@@ -45,5 +46,11 @@ public class BBSDAOImpl implements BBSDAO{
 		session.delete(namespace + ".delete", bid);
 		
 	}
+
+	@Override
+	public int total() {
+		return session.selectOne(namespace + ".total");
+	}
+
 
 }

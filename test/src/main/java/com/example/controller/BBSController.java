@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dao.BBSDAO;
 import com.example.domain.BBSVO;
+import com.example.domain.QueryVO;
 
 @RestController
 @RequestMapping("/bbs")
@@ -24,8 +26,12 @@ public class BBSController {
 	BBSDAO dao;
 	
 	@GetMapping("/list")
-	public List<BBSVO> list(){ 
-		return dao.list();
+	public HashMap<String,Object> list(QueryVO vo){
+		System.out.println(vo);
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("total", dao.total());
+		map.put("list", dao.list(vo));
+		return map;
 	}
 	@GetMapping("/{bid}")
 	public BBSVO read(@PathVariable("bid") int bid) {
